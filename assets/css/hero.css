@@ -127,6 +127,28 @@
     color: rgba(255, 255, 255, 0.84);
 }
 
+@media (max-width: 720px) {
+    .hero__content {
+        padding: 24px 0 22px;
+    }
+
+    .hero__card {
+        padding: 18px 18px 16px;
+    }
+
+    .hero__name {
+        font-size: clamp(32px, 9vw, 52px);
+    }
+
+    .hero__tag {
+        letter-spacing: 0.12em;
+    }
+
+    .hero__blurb {
+        font-size: 15px;
+    }
+}
+
 @media (min-width: 760px) {
     .hero__meta {
         grid-template-columns: 1fr 1fr;
