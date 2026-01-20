@@ -49,6 +49,28 @@
     margin-bottom: 0;
 }
 
+@media (max-width: 640px) {
+    .page {
+        padding: 22px 0 12px;
+    }
+
+    .page__title {
+        font-size: 28px;
+    }
+
+    .page__lead {
+        font-size: 14px;
+    }
+
+    .prose {
+        padding: 16px 16px 12px;
+    }
+
+    .prose p {
+        font-size: 16px;
+    }
+}
+
 @media (min-width: 900px) {
     .prose {
         column-count: 2;
