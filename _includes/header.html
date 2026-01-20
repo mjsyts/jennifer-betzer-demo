@@ -1,13 +1,13 @@
 <header class="site-header">
   <div class="wrap site-header__inner">
-    <a class="site-title" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+    <a class="site-title" href="{{ '/' | relative_url }}">Jennifer Betzer</a>
 
     <nav class="site-nav" aria-label="Primary">
       <a href="{{ '/' | relative_url }}" class="{% if page.title == 'Home' %}is-active{% endif %}">Home</a>
       <a href="{{ '/about/' | relative_url }}" class="{% if page.title == 'About' %}is-active{% endif %}">About</a>
-      <a href="#">Teaching</a>
-      <a href="#">Media</a>
-      <a href="#">Contact</a>
+      <a href="{{ '/teaching/' | relative_url }}" class="{% if page.title == 'Teaching' %}is-active{% endif %}">Teaching</a>
+      <a href="{{ '/media/' | relative_url }}" class="{% if page.title == 'Media' %}is-active{% endif %}">Media</a>
+      <a href="{{ '/contact/' | relative_url }}" class="{% if page.title == 'Contact' %}is-active{% endif %}">Contact</a>
     </nav>
   </div>
 </header>
