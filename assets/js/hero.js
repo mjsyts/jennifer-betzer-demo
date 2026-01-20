@@ -4,9 +4,27 @@
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  const basePath = hero.dataset.heroBaseurl || "/assets/images/hero";
-  const normalizedBase = basePath.replace(/\/$/, "");
-  const buildUrl = (filename) => `${normalizedBase}/${filename}`;
+  // Prefer explicit per-hero override: <section data-hero-crossfade data-hero-baseurl="/assets/images/hero">
+  // Otherwise use site baseurl (Jekyll-safe) if you expose it on <html data-baseurl="{{ site.baseurl }}">
+  const htmlBase = document.documentElement.dataset.baseurl || "";
+  const attrBase = hero.getAttribute("data-hero-baseurl") || hero.dataset.heroBaseurl || "";
+
+  // If you pass a full URL by mistake, we still allow it — but we won't *force* absolute URLs.
+  const rawBase = attrBase || `${htmlBase}/assets/images/hero`;
+
+  // Normalize: ensure exactly one leading slash for root-relative paths, remove trailing slash.
+  const normalizePath = (p) => {
+    if (!p) return "";
+    // Keep absolute URLs as-is (https://...), just trim trailing slash
+    if (/^https?:\/\//i.test(p)) return p.replace(/\/+$/, "");
+    // Root-relative: ensure leading slash, collapse duplicate slashes, trim trailing slash
+    const withLeading = p.startsWith("/") ? p : `/${p}`;
+    return withLeading.replace(/\/{2,}/g, "/").replace(/\/+$/, "");
+  };
+
+  const base = normalizePath(rawBase);
+
+  const buildUrl = (filename) => `${base}/${filename}`.replace(/\/{2,}/g, "/");
 
   // SINGLE SOURCE OF TRUTH: set your hero images here
   const images = [
@@ -20,17 +38,17 @@
   if (images.length === 0) return;
 
   // Timing (SST)
-  const FADE_MS = 1600;       // must match CSS opacity transition
-  const HOLD_MS = 7000;       // time fully visible before switching
+  const FADE_MS = 1600;           // must match CSS opacity transition
+  const HOLD_MS = 7000;           // time fully visible before switching
   const SLIDE_MS = FADE_MS + HOLD_MS;
   const KB_DUR_MS = SLIDE_MS + 800; // a touch longer so motion doesn't "snap" at swap
 
   // Gentle motion presets (keep small: background-only)
   const moves = [
-    { xTo: "-2%",  yTo: "-2%"  },
-    { xTo: "2%",   yTo: "-1.5%"},
-    { xTo: "-1.5%",yTo: "2%"   },
-    { xTo: "1.5%", yTo: "1.2%" },
+    { xTo: "-2%",   yTo: "-2%"   },
+    { xTo: "2%",    yTo: "-1.5%" },
+    { xTo: "-1.5%", yTo: "2%"    },
+    { xTo: "1.5%",  yTo: "1.2%"  },
   ];
 
   // Find the base layer or create one
@@ -45,7 +63,7 @@
   let layerB = hero.querySelector(".hero__bg--b");
   if (!layerB || layerB === layerA) {
     layerB = document.createElement("div");
-    layerB.className = "hero__bg";
+    layerB.className = "hero__bg hero__bg--b";
     hero.insertBefore(layerB, layerA.nextSibling);
   }
 
@@ -68,10 +86,8 @@
 
   const startAnim = (el) => {
     el.classList.add("is-animating");
-    // Restart animation cleanly by toggling
     el.style.animation = "none";
-    // force reflow
-    void el.offsetHeight;
+    void el.offsetHeight; // force reflow
     el.style.animation = "";
   };
 
@@ -103,7 +119,6 @@
     showLayer(layers[0]);
     if (!reduceMotion) startAnim(layers[0]);
 
-    // If only one image, nothing else to do
     if (images.length < 2) return;
 
     setInterval(async () => {
@@ -121,7 +136,6 @@
 
       if (!reduceMotion) startAnim(incoming);
 
-      // Let the fade finish, then stop animating outgoing so it doesn't keep burning CPU
       setTimeout(() => {
         hideLayer(outgoing);
         stopAnim(outgoing);
