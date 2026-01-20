@@ -1,7 +1,7 @@
 title: Jennifer Betzer
 description: Harpist & Educator
-url: ""            # leave blank for local dev; set later for deployment
-baseurl: ""        # keep blank for a root site
+url: ""
+baseurl: "/jennifer-betzer-demo"
 
 markdown: kramdown
 
