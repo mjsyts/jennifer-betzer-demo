@@ -3,7 +3,7 @@ layout: default
 title: Home
 ---
 
-<section class="hero" data-hero-crossfade>
+<section class="hero" data-hero-crossfade data-hero-baseurl="{{ '/assets/images/hero' | relative_url }}">
   <div class="hero__bg hero__bg--a is-visible is-animating" aria-hidden="true"></div>
   <div class="hero__bg hero__bg--b" aria-hidden="true"></div>
   <div class="hero__scrim" aria-hidden="true"></div>

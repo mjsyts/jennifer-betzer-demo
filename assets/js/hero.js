@@ -4,13 +4,17 @@
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  const basePath = hero.dataset.heroBaseurl || "/assets/images/hero";
+  const normalizedBase = basePath.replace(/\/$/, "");
+  const buildUrl = (filename) => `${normalizedBase}/${filename}`;
+
   // SINGLE SOURCE OF TRUTH: set your hero images here
   const images = [
-    "/assets/images/hero/hero-01.jpg",
-    "/assets/images/hero/hero-02.jpg",
-    "/assets/images/hero/hero-03.jpg",
-    "/assets/images/hero/hero-04.jpg",
-    // "/assets/images/hero/hero-05.jpg",
+    buildUrl("hero-01.jpg"),
+    buildUrl("hero-02.jpg"),
+    buildUrl("hero-03.jpg"),
+    buildUrl("hero-04.jpg"),
+    // buildUrl("hero-05.jpg"),
   ].filter(Boolean);
 
   if (images.length === 0) return;
@@ -37,10 +41,13 @@
     hero.prepend(layerA);
   }
 
-  // Create second layer for crossfade
-  const layerB = document.createElement("div");
-  layerB.className = "hero__bg";
-  hero.insertBefore(layerB, layerA.nextSibling);
+  // Create (or reuse) second layer for crossfade
+  let layerB = hero.querySelector(".hero__bg--b");
+  if (!layerB || layerB === layerA) {
+    layerB = document.createElement("div");
+    layerB.className = "hero__bg";
+    hero.insertBefore(layerB, layerA.nextSibling);
+  }
 
   const layers = [layerA, layerB];
 
