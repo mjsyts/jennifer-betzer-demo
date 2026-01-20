@@ -1,0 +1,61 @@
+.page {
+    padding: 28px 0 18px;
+    /* smaller bottom fixes the “dead zone” */
+    background: linear-gradient(to bottom, var(--bg), var(--accent-soft));
+}
+
+.page__content {
+    max-width: 980px;
+}
+
+.page__header {
+    margin-bottom: 18px;
+    padding-bottom: 0;
+    border: 0;
+}
+
+.page__title {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 34px;
+    line-height: 1.12;
+    margin: 0 0 6px;
+}
+
+.page__lead {
+    margin: 0;
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 15px;
+    line-height: 1.55;
+}
+
+.prose {
+    background: rgba(255, 255, 255, 0.82);
+    border: 0;
+    /* removes the extra box line */
+    border-radius: 16px;
+    padding: 18px 18px 14px;
+    box-shadow: 0 14px 42px rgba(0, 0, 0, 0.06);
+}
+
+.prose p {
+    margin: 0 0 12px;
+    font-size: 17px;
+    line-height: 1.7;
+    color: rgba(0, 0, 0, 0.82);
+}
+
+.prose p:last-child {
+    margin-bottom: 0;
+}
+
+@media (min-width: 900px) {
+    .prose {
+        column-count: 2;
+        column-gap: 28px;
+    }
+
+    .prose p {
+        break-inside: avoid;
+    }
+}

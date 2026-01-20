@@ -1,0 +1,13 @@
+title: Jennifer Betzer
+description: Harpist & Educator
+url: ""            # leave blank for local dev; set later for deployment
+baseurl: ""        # keep blank for a root site
+
+markdown: kramdown
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor
+  - .bundle

@@ -1,0 +1,48 @@
+:root {
+    --font-serif: "Libre Baskerville", serif;
+    --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+
+    --bg: #f7f6f3;
+    --text: #1b1b1b;
+
+    --accent: #2f6f55;
+    --accent-2: #245844;
+    --accent-soft: #e3efe9;
+    --accent-muted: #6f9c87;
+
+    --wrap: 1100px;
+    --r-pill: 999px;
+    --r-card: 18px;
+
+    --shadow-hero: 0 22px 70px rgba(0, 0, 0, 0.22);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.wrap {
+    width: min(var(--wrap), calc(100% - 48px));
+    margin: 0 auto;
+}
+
+main {
+    display: block;
+    background: linear-gradient(to bottom, var(--bg), var(--accent-soft));
+    padding-bottom: 24px;
+}

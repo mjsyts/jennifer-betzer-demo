@@ -1,0 +1,9 @@
+/* Home hero fills the viewport under sticky header */
+.page-home .hero {
+    min-height: calc(100vh - var(--header-h, 58px));
+}
+
+/* If any home-band exists in layout, don’t show it (prevents scroll) */
+.page-home .home-band {
+    display: none;
+}
